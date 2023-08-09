@@ -1,4 +1,4 @@
-#include "MainManager.h"
+#include "../include/MainManager.h"
 
 MainManager::MainManager() {}
 
@@ -125,8 +125,50 @@ void MainManager::start() {
 }
 
 bool MainManager::loadShops(string filePath) {
-    bool success = true;
+    ifstream shopLoader;
+    shopLoader.open(filePath);
 
+    if (shopLoader.fail()) {
+        perror(filePath.c_str());
+        return false;
+    }
+
+    int totalShops;
+    shopLoader >> totalShops;
+
+    string lineInput;
+    getline(shopLoader, lineInput);
+    getline(shopLoader, lineInput);
+
+    for (int i = 0; i < totalShops; i++) {
+        string shopName;
+        getline(shopLoader, shopName);
+
+        int money;
+        shopLoader >> money;
+        shopList.push_back(Shop(shopName, money));
+        getline(shopLoader, lineInput);
+    }
+
+    while (getline(shopLoader, lineInput)) {
+        int shopNumber;
+        shopLoader >> shopNumber;
+        getline(shopLoader, lineInput);
+
+        string itemName;
+        getline(shopLoader, itemName);
+
+        int itemPrice;
+        shopLoader >> itemPrice;
+
+        int itemQuantity;
+        shopLoader >> itemQuantity;
+
+        shopList[shopNumber].addItem(itemName, itemPrice, itemQuantity);
+        getline(shopLoader, lineInput);
+    }
+
+    /*
     shopList.push_back(Shop("Animal Shop", 1425));
     shopList.back().addItem("Crocodile", 300, 3);
     shopList.back().addItem("Gorilla", 210, 5);
@@ -150,8 +192,9 @@ bool MainManager::loadShops(string filePath) {
     shopList.back().addItem("10 min Super Strength", 2400, 4);
     shopList.back().addItem("10 min Fly", 1750, 11);
     shopList.back().addItem("5 min Immorality", 4500, 1);
+    */
 
-    return success;
+    return true;
 }
 
 bool MainManager::loadPlayer(string filePath) {
@@ -167,10 +210,10 @@ bool MainManager::loadPlayer(string filePath) {
     playerLoader >> intInput;
     player = Player(intInput);
 
-    string strInput;
-    getline(playerLoader, strInput);
+    string lineInput;
+    getline(playerLoader, lineInput);
 
-    while (getline(playerLoader, strInput)) {
+    while (getline(playerLoader, lineInput)) {
         string itemName;
         getline(playerLoader, itemName);
 
@@ -181,7 +224,7 @@ bool MainManager::loadPlayer(string filePath) {
         playerLoader >> quantity;
 
         player.addItem(itemName, price, quantity);
-        getline(playerLoader, strInput);
+        getline(playerLoader, lineInput);
     }
 
     /*
@@ -199,6 +242,36 @@ bool MainManager::loadPlayer(string filePath) {
 }
 
 bool MainManager::saveShops(string filePath) {
+    ofstream shopSaver;
+    shopSaver.open(filePath);
+
+    if (shopSaver.fail()) {
+        perror(filePath.c_str());
+        return false;
+    }
+
+    shopSaver << shopList.size() << endl << endl;
+
+    vector<string> items;
+
+    for (int i = 0; i < shopList.size(); i++) {
+        shopSaver << shopList[i].getName() << endl;
+        shopSaver << shopList[i].getMoney() << endl;
+
+        for (int j = 1; j < shopList[i].getSerialNo(); j++) {
+            Item currentItem = shopList[i].getItem(j);
+
+            stringstream itemStr;
+            itemStr << endl << i << endl << currentItem.getName() << endl << currentItem.getPrice() << endl << currentItem.getQuantity() << endl;
+            
+            items.push_back(itemStr.str());
+        }
+    }
+
+    for (int i = 0; i < items.size(); i++) {
+        shopSaver << items[i];
+    }
+
     return true;
 }
 
@@ -211,16 +284,16 @@ bool MainManager::savePlayer(string filePath) {
         return false;
     }
 
-    playerSaver << player.getMoney() << endl << endl;
+    playerSaver << player.getMoney() << endl;
 
     for (int i = 1; i < player.getSerialNo(); i++) {
         Item currentItem = player.getItem(i);
         stringstream itemStr;
-        itemStr << currentItem.getName() << endl << currentItem.getPrice() << endl << currentItem.getQuantity();
+        itemStr << endl << currentItem.getName() << endl << currentItem.getPrice() << endl << currentItem.getQuantity() << endl;
 
-        if (i < player.getSerialNo() - 1) {
+        /*if (i < player.getSerialNo() - 1) {
             itemStr << endl << endl;
-        }
+        }*/
         playerSaver << itemStr.str();
     }
 

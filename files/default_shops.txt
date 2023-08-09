@@ -1,0 +1,98 @@
+3
+
+Animal Shop
+1425
+Fruit Shop
+980
+Magic Shop
+3700
+
+0
+Crocodile
+300
+3
+
+0
+Gorilla
+210
+5
+
+0
+Goat
+125
+8
+
+0
+Donkey
+140
+4
+
+0
+Hippopotamus
+250
+2
+
+0
+Ostrich
+165
+4
+
+0
+Rooster
+35
+16
+
+1
+Jack Fruit
+120
+7
+
+1
+Pineapple
+75
+6
+
+1
+Watermelon
+95
+4
+
+1
+Mango
+40
+13
+
+1
+Apple
+25
+27
+
+1
+Guava
+20
+19
+
+2
+10 min Invincibility
+3400
+3
+
+2
+10 min Super Speed
+1350
+6
+
+2
+10 min Super Strength
+2400
+4
+
+2
+10 min Fly
+1750
+11
+
+2
+5 min Immorality
+4500
+1

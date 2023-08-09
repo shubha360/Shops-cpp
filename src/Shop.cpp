@@ -1,4 +1,4 @@
-#include "Shop.h"
+#include "../include/Shop.h"
 
 Shop::Shop(string name, int money) {
     _name = name;
@@ -34,6 +34,7 @@ bool Shop::buyItem(Item& item) {
         addItem(item.getName(), item.getPrice(), 1);
     }
     _money -= item.getPrice();
+    return true;
 }
 
 Item Shop::sellItem(int serialNo) {
@@ -51,7 +52,8 @@ Item Shop::sellItem(int serialNo) {
                 if ((*it).getQuantity() == 1) {
                     it = _itemList.erase(it);
                     erased = true;
-                    it--;
+                    // it--;
+                    (*it).changeSerialNo();
                     _serialNo--;
                 }
                 else {

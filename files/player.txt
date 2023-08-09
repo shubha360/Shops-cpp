@@ -1,0 +1,33 @@
+2100
+
+10 min Fly
+1750
+1
+
+10 min Super Speed
+1350
+1
+
+Goat
+125
+1
+
+Rooster
+35
+6
+
+Crocodile
+300
+1
+
+Guava
+20
+4
+
+Pineapple
+75
+1
+
+Mango
+40
+3

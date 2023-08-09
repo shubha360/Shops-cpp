@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "../include/Player.h"
 
 Player::Player() {
     _money = -1;
@@ -55,7 +55,8 @@ Item Player::sellItem(int serialNo) {
                 if ((*it).getQuantity() == 1) {
                     it = _inventory.erase(it);
                     erased = true;
-                    it--;
+                    // it--;
+                    (*it).changeSerialNo();
                     _serialNo--;
                 }
                 else {
