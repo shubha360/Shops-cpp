@@ -263,7 +263,7 @@ bool MainManager::saveShops(string filePath) {
 
             stringstream itemStr;
             itemStr << endl << i << endl << currentItem.getName() << endl << currentItem.getPrice() << endl << currentItem.getQuantity() << endl;
-            
+
             items.push_back(itemStr.str());
         }
     }
