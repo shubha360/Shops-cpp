@@ -1,5 +1,11 @@
 bin/
 obj/
+x64/
+.vs/
 *.cbp
 *.depend
 *.layout
+*.sln
+*.vcxproj
+*.filters
+*.user
